@@ -92,7 +92,7 @@ public class ConsoleDialog {
         scanline.close();
     }
     
-    /** Ask how much money (Baht) to withdraw and then do it.
+    /** Ask how much money (Bath) to withdraw and then do it.
      *  After withdraw, show the values of the coins we withdrew.
      */
     public void withdrawDialog() {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full.
@@ -85,7 +84,6 @@ public class Purse {
 	 * @return true if coin inserted, false if can't insert
 	 */
 	public boolean insert(Coin coin) {
-		// if the purse is already full then can't insert anything.
 		boolean ok = true;
 		if (coin.getValue() <= 0 || this.isFull())
 			return false;
@@ -104,50 +102,26 @@ public class Purse {
 	 *         requested amount.
 	 */
 	public Coin[] withdraw(double amount) {
-		/*
-		 * See lab sheet for outline of a solution, or devise your own solution. The
-		 * idea is to be greedy. Try to withdraw the largest coins possible. Each time
-		 * you choose a coin as a candidate for withdraw, add it to a temporary list and
-		 * decrease the amount (remainder) to withdraw.
-		 * 
-		 * If you reach a point where amountNeededToWithdraw == 0 then you found a
-		 * solution! Now, use the temporary list to remove coins from the money list,
-		 * and return the temporary list (as an array).
-		 */
-
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin.
-		// Your code might use some other variable for the remaining amount to withdraw.
-		
 		List<Coin> withdrawSave = new ArrayList<>();
 		java.util.Collections.sort(money);
 		java.util.Collections.reverse(money);
-		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) {
+		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) 
 			return null;
-		}
 		for (int i = 0; i < money.size(); i++) {
 			if (amount >= money.get(i).getValue()) {
 				amount -= money.get(i).getValue();
 				withdrawSave.add(money.get(i));
 			}
-			if (amount == 0) {
+			if (amount == 0) 
 				break;
-			}
 		}
-
 		if (amount != 0)
 			return null;
-
 		for (Coin reset : withdrawSave)
 			money.remove(reset);
-
 		Coin[] withdraw = new Coin[withdrawSave.size()];
-		// Success.
-		// Remove the coins you want to withdraw from purse,
-		// and return them as an array.
-		// Use list.toArray( array[] ) to copy a list into an array.
-		// toArray returns a reference to the array itself.
-		return withdrawSave.toArray(withdraw); 
+
+		return withdrawSave.toArray(withdraw);
 	}
 
 	/**
@@ -155,7 +129,7 @@ public class Purse {
 	 * whatever is a useful description.
 	 */
 	public String toString() {
-		
+
 		return this.count() + " coins with value " + this.getBalance();
 	}
 

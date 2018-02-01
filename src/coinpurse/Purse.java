@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Comparator;
 
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Purse {
 	/** Collection of objects in the purse. */
-	private List<Coin> money = new ArrayList<Coin>();
+	private List<Valuable> money = new ArrayList<Valuable>();
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set when
 	 * the purse is created and cannot be changed.
@@ -83,7 +84,7 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Coin coin) {
+	public boolean insert(Valuable coin) {
 		boolean ok = true;
 		if (coin.getValue() <= 0 || this.isFull())
 			return false;
@@ -101,9 +102,10 @@ public class Purse {
 	 * @return array of Coin objects for money withdrawn, or null if cannot withdraw
 	 *         requested amount.
 	 */
-	public Coin[] withdraw(double amount) {
-		List<Coin> withdrawSave = new ArrayList<>();
-		java.util.Collections.sort(money);
+	public Valuable[] withdraw(double amount) {
+		List<Valuable> withdrawSave = new ArrayList<>();
+		Comparator<Valuable> comp = new ValueComparator();
+		java.util.Collections.sort(money,comp);
 		java.util.Collections.reverse(money);
 		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) 
 			return null;
@@ -117,9 +119,9 @@ public class Purse {
 		}
 		if (amount != 0)
 			return null;
-		for (Coin reset : withdrawSave)
+		for (Valuable reset : withdrawSave)
 			money.remove(reset);
-		Coin[] withdraw = new Coin[withdrawSave.size()];
+		Valuable[] withdraw = new Valuable[withdrawSave.size()];
 
 		return withdrawSave.toArray(withdraw);
 	}

@@ -4,7 +4,7 @@ package coinpurse;
  * Coin represents coinage (money) with a fixed value and currency.
  * @author Vichakorn Yotboonrueang
  */
-public class Coin implements Comparable<Coin>,Valuable {
+public class Coin implements Valuable {
 	/** save the value of coin. */
 	private double value;
 	/** save the currency of coin. */
@@ -49,23 +49,7 @@ public class Coin implements Comparable<Coin>,Valuable {
 		Coin other = (Coin) arg;
 		return this.value == other.value && this.currency.equals(other.currency);
 	}
-	/**
-	 * Compares Coin by value.
-	 * @param coin is the object that compared;
-	 * @return -1 if value this object after specified object,
-	 * 		    1 if value this object before specified object,
-	 * 		    0 if value are the same. 
-	 */
-	@Override
-	public int compareTo(Coin coin) {
-		Coin other = (Coin) coin;
-		if (this.value < other.value)
-			return -1;
-		if (this.value > other.value)
-			return 1;
-		else
-			return 0;
-	}
+
 	/**
 	 * Describing what coin is in the purse.
 	 * @return describe of coin.

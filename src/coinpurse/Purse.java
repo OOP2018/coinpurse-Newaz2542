@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Comparator;
 
 /**
- * A coin purse contains coins. You can insert coins, withdraw money, check the
+ * A coinpurse contains money(coins/bank notes). You can insert money(coins/bank note), withdraw money, check the
  * balance, and check if the purse is full.
  * 
  * @author Vichakorn Yotboonrueang
@@ -19,6 +19,8 @@ public class Purse {
 	 * the purse is created and cannot be changed.
 	 */
 	private final int capacity;
+	
+	private Comparator<Valuable> comp = new ValueComparator();
 
 	/**
 	 * Create a purse with a specified capacity.
@@ -32,9 +34,9 @@ public class Purse {
 
 	/**
 	 * Count and return the number of coins in the purse. This is the number of
-	 * coins, not their value.
+	 * money(coins/bank note), not their value.
 	 * 
-	 * @return the number of coins in the purse
+	 * @return the number of money(coins/bank note) in the purse
 	 */
 	public int count() {
 		return money.size();
@@ -54,7 +56,7 @@ public class Purse {
 	}
 
 	/**
-	 * Return the capacity of the coin purse.
+	 * Return the capacity of the money(coins/bank note) purse.
 	 * 
 	 * @return the capacity
 	 */
@@ -77,11 +79,11 @@ public class Purse {
 	}
 
 	/**
-	 * Insert a coin into the purse. The coin is only inserted if the purse has
-	 * space for it and the coin has positive value. No worthless coins!
+	 * Insert a money(coins/bank note) into the purse. The money is only inserted if the purse has
+	 * space for it and the money has positive value. No worthless money!
 	 * 
 	 * @param coin
-	 *            is a Coin object to insert into purse
+	 *            is a Coin/BankNote object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
 	public boolean insert(Valuable coin) {
@@ -99,12 +101,11 @@ public class Purse {
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of Coin objects for money withdrawn, or null if cannot withdraw
+	 * @return array of money objects for money withdrawn, or null if cannot withdraw
 	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
 		List<Valuable> withdrawSave = new ArrayList<>();
-		Comparator<Valuable> comp = new ValueComparator();
 		java.util.Collections.sort(money,comp);
 		java.util.Collections.reverse(money);
 		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) 

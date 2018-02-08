@@ -1,7 +1,6 @@
 package coinpurse;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -11,8 +10,7 @@ import java.util.List;
  *
  */
 public class MoneyUtil {
-	
-	private static Comparator<Valuable> comp = new ValueComparator();
+
 	/**
 	 * sortCoins is for check the compareTo method
 	 */
@@ -26,9 +24,9 @@ public class MoneyUtil {
 		coins.add(new Coin(150.0, "USD"));
 		coins.add(new Coin(10.0, "Bath"));
 		coins.add(new Coin(10.0, "Yen"));
-		List<Valuable> values = new ArrayList<Valuable>();
-		values.addAll(coins);
-		sortCoins(filterByCurrency(values, "Bath"));
+
+		sortCoins(filterByCurrency(coins, "Bath"));
+
 	}
 
 	/**
@@ -37,7 +35,7 @@ public class MoneyUtil {
 	 * @param coins
 	 *            is list of coin.
 	 */
-	public static void printCoin(List<Valuable> coins) {
+	public static void printCoin(List<Coin> coins) {
 		for (int i = 0; i < coins.size(); i++) {
 			System.out.print(coins.get(i).toString() + "-" + coins.get(i).getCurrency());
 			System.out.println("");
@@ -45,16 +43,16 @@ public class MoneyUtil {
 	}
 
 	/**
-	 * Return coins or bank note with the same currency.
+	 * Return coins with the same currency.
 	 * 
 	 * @param coins
-	 *            is list of coin or bank note.
+	 *            is list of coin.
 	 * @param Currency
-	 *            of coins or bank note.
-	 * @return list of coins or bank note that have the same currency.
+	 *            of coins.
+	 * @return list of coins that have the same currency.
 	 */
-	public static List<Valuable> filterByCurrency(List<Valuable> coins, String Currency) {
-		List<Valuable> coin = new ArrayList<Valuable>();
+	public static List<Coin> filterByCurrency(List<Coin> coins, String Currency) {
+		List<Coin> coin = new ArrayList<Coin>();
 		for (int i = 0; i < coins.size(); i++) {
 			if (coins.get(i).getCurrency().equals(Currency))
 				coin.add(coins.get(i));
@@ -63,13 +61,13 @@ public class MoneyUtil {
 	}
 
 	/**
-	 * sortCoins is for sort value of Valuable before print.
+	 * sortCoins is for sort value of coin before print.
 	 * 
 	 * @param coins
-	 *            is list of Valuable that have been sorted.
+	 *            is list of coins that have been sorted.
 	 */
-	public static void sortCoins(List<Valuable> coins) {
-		java.util.Collections.sort(coins,comp);
+	public static void sortCoins(List<Coin> coins) {
+		java.util.Collections.sort(coins);
 		printCoin(coins);
 	}
 }

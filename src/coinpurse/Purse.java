@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Comparator;
 
 /**
- * A coinpurse contains money(coins/bank notes). You can insert money(coins/bank note), withdraw money, check the
+ * A purse contains valuable. You can insert money, withdraw money, check the
  * balance, and check if the purse is full.
  * 
  * @author Vichakorn Yotboonrueang
@@ -14,29 +14,28 @@ import java.util.Comparator;
 public class Purse {
 	/** Collection of objects in the purse. */
 	private List<Valuable> money = new ArrayList<Valuable>();
+	private Comparator<Valuable> comp = new ValueComparator();
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set when
 	 * the purse is created and cannot be changed.
 	 */
 	private final int capacity;
-	
-	private Comparator<Valuable> comp = new ValueComparator();
 
 	/**
 	 * Create a purse with a specified capacity.
 	 * 
 	 * @param capacity
-	 *            is maximum number of coins you can put in purse.
+	 *            is maximum number of money you can put in purse.
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
 	}
 
 	/**
-	 * Count and return the number of coins in the purse. This is the number of
-	 * money(coins/bank note), not their value.
+	 * Count and return the number of item in the purse. This is the number of
+	 * item money, not their value.
 	 * 
-	 * @return the number of money(coins/bank note) in the purse
+	 * @return the number of item in the purse
 	 */
 	public int count() {
 		return money.size();
@@ -56,7 +55,7 @@ public class Purse {
 	}
 
 	/**
-	 * Return the capacity of the money(coins/bank note) purse.
+	 * Return the capacity of the purse.
 	 * 
 	 * @return the capacity
 	 */
@@ -79,47 +78,60 @@ public class Purse {
 	}
 
 	/**
-	 * Insert a money(coins/bank note) into the purse. The money is only inserted if the purse has
+	 * Insert a money into the purse. The money is only inserted if the purse has
 	 * space for it and the money has positive value. No worthless money!
 	 * 
-	 * @param coin
-	 *            is a Coin/BankNote object to insert into purse
-	 * @return true if coin inserted, false if can't insert
+	 * @param money
+	 *            is a Valuable object to insert into purse
+	 * @return true if money inserted, false if can't insert
 	 */
-	public boolean insert(Valuable coin) {
+	public boolean insert(Valuable money) {
 		boolean ok = true;
-		if (coin.getValue() <= 0 || this.isFull())
+		if (money.getValue() <= 0 || this.isFull())
 			return false;
 		else
-			money.add(coin);
+		this.money.add(money);
 		return ok;
 	}
 
 	/**
-	 * Withdraw the requested amount of money. Return an array of Coins withdrawn
-	 * from purse, or return null if cannot withdraw the amount requested.
+	 * Withdraw the requested amount of money that have currency Bath. 
+	 * Return an array of Valuable withdrawn from purse, or return null if cannot withdraw the amount requested.
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of money objects for money withdrawn, or null if cannot withdraw
+	 * @return array of Valuable objects for money withdrawn, or null if cannot withdraw
 	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
+		return withdraw(new Money(amount , "Bath"));
+	}
+	/**
+	 * Withdraw the requested amount of money that contains currency of amount. 
+	 * Return an array of Valuable withdrawn from purse, or return null if cannot withdraw the amount requested.
+	 * 
+	 * @param amount
+	 *            is the amount to withdraw
+	 * @return array of Valuable objects for withdrawn money, or null if cannot withdraw
+	 *         requested amount.
+	 */
+	public Valuable[] withdraw(Valuable amount) {
 		List<Valuable> withdrawSave = new ArrayList<>();
 		java.util.Collections.sort(money,comp);
 		java.util.Collections.reverse(money);
-		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) {
+		double amountSave = amount.getValue();
+		if (amountSave <= 0 || money.size() == 0 || this.getBalance() < amountSave) {
 			return null;
 		}
 		for (Valuable m : money) {
-			if (amount >= m.getValue()) {
-				amount -= m.getValue();
+			if (amount.getValue() >= m.getValue()) {
+				amountSave -= m.getValue();
 				withdrawSave.add(m);
 			}
-			if (amount == 0) 
+			if (amountSave == 0) 
 				break;
 		}
-		if (amount != 0)
+		if (amountSave != 0)
 			return null;
 		for (Valuable reset : withdrawSave)
 			money.remove(reset);

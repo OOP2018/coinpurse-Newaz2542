@@ -16,7 +16,7 @@ public class MoneyUtil {
 	/**
 	 * sortCoins is for check the compareTo method
 	 */
-	public void sortCoins() {
+	public void sortCoin() {
 		List<Coin> coins = new ArrayList<Coin>();
 		coins.add(new Coin(10.0, "Bath"));
 		coins.add(new Coin(0.5, "Bath"));
@@ -38,9 +38,8 @@ public class MoneyUtil {
 	 *            is list of coin.
 	 */
 	public static void printCoin(List<Valuable> coins) {
-		for (int i = 0; i < coins.size(); i++) {
-			System.out.print(coins.get(i).toString() + "-" + coins.get(i).getCurrency());
-			System.out.println("");
+		for (Valuable c : coins) {
+			System.out.println(c);
 		}
 	}
 
@@ -55,9 +54,8 @@ public class MoneyUtil {
 	 */
 	public static List<Valuable> filterByCurrency(List<Valuable> coins, String Currency) {
 		List<Valuable> coin = new ArrayList<Valuable>();
-		for (int i = 0; i < coins.size(); i++) {
-			if (coins.get(i).getCurrency().equals(Currency))
-				coin.add(coins.get(i));
+		for (Valuable c : coins) {
+				coin.add(c);
 		}
 		return coin;
 	}

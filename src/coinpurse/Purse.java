@@ -108,12 +108,13 @@ public class Purse {
 		List<Valuable> withdrawSave = new ArrayList<>();
 		java.util.Collections.sort(money,comp);
 		java.util.Collections.reverse(money);
-		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) 
+		if (amount <= 0 || money.size() == 0 || this.getBalance() < amount) {
 			return null;
-		for (int i = 0; i < money.size(); i++) {
-			if (amount >= money.get(i).getValue()) {
-				amount -= money.get(i).getValue();
-				withdrawSave.add(money.get(i));
+		}
+		for (Valuable m : money) {
+			if (amount >= m.getValue()) {
+				amount -= m.getValue();
+				withdrawSave.add(m);
 			}
 			if (amount == 0) 
 				break;
@@ -133,7 +134,7 @@ public class Purse {
 	 */
 	public String toString() {
 
-		return this.count() + " coins with value " + this.getBalance();
+		return this.count() + " money with value " + this.getBalance();
 	}
 
 }

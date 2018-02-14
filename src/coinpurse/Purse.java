@@ -120,7 +120,7 @@ public class Purse {
 		java.util.Collections.sort(money,comp);
 		java.util.Collections.reverse(money);
 		double amountSave = amount.getValue();
-		if (amountSave <= 0 || money.size() == 0 || this.getBalance() < amountSave) {
+		if (amountSave <= 0 || money.size() == 0 || this.getBalance() < amountSave || amount == null) {
 			return null;
 		}
 		for (Valuable m : money) {

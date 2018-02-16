@@ -6,7 +6,6 @@ package coinpurse;
  */
 public class BankNote extends Money{
 	/** save the serial number of Bank note. */
-	private static long nextSerialNumber = 1000000;
 	private long serialNumber;
 
 	/**
@@ -18,11 +17,11 @@ public class BankNote extends Money{
 	 * @param currency
 	 *            of bank note
 	 */
-	public BankNote(double value, String currency) {
+	public BankNote(double value, String currency,long serialNumber) {
 		super(value,currency);
-		serialNumber = nextSerialNumber;
-		nextSerialNumber++;
+		this.serialNumber = serialNumber;
 	}
+
 
 	/**
 	 * Get value of bank note from attribute.

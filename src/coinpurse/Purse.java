@@ -95,7 +95,7 @@ public class Purse {
 	}
 
 	/**
-	 * Withdraw the requested amount of money that have currency Baht. 
+	 * Withdraw the requested amount of money that have currency Bath. 
 	 * Return an array of Valuable withdrawn from purse, or return null if cannot withdraw the amount requested.
 	 * 
 	 * @param amount
@@ -104,7 +104,7 @@ public class Purse {
 	 *         requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		return withdraw(new Money(amount , "Baht"));
+		return withdraw(new Money(amount , "Bath"));
 	}
 	/**
 	 * Withdraw the requested amount of money that contains currency of amount. 

@@ -40,9 +40,6 @@ public class PurseTest {
 	/**
 	 * Make a bank note with the default currency. To save typing "new Coin(...)"
 	 */
-	private BankNote makeNote(double value) {
-		return new BankNote(value, CURRENCY);
-	}
 
 	/** Easy test that the Purse constructor is working. */
 	@Test
@@ -57,19 +54,20 @@ public class PurseTest {
 	public void testBankNote() {
 		// test insert
 		Purse purse = new Purse(4);
-		BankNote money1 = makeNote(50);
-		BankNote money2 = makeNote(100);
-		BankNote money3 = makeNote(20);
-		BankNote money4 = makeNote(50);
+		MoneyFactory makeNote = MoneyFactory.getInstance();
+		Valuable money1 = makeNote.createMoney(50);
+		Valuable money2 = makeNote.createMoney(100);
+		Valuable money3 = makeNote.createMoney(20);
+		Valuable money4 = makeNote.createMoney(50);
 		assertTrue(purse.insert(money1));
 		assertTrue(purse.insert(money3));
 		assertTrue(purse.insert(money2));
 		assertTrue(purse.insert(money4));
 		assertEquals(4, purse.count());
 		// purse is full so insert should fail
-		assertFalse(purse.insert(makeNote(1)));
+		assertFalse(purse.insert(makeNote.createMoney(1)));
 		// test insert full
-		assertFalse(purse.insert(makeNote(1)));
+		assertFalse(purse.insert(makeNote.createMoney(1)));
 		// testEquals
 		assertFalse(money1.equals(money2));
 		assertFalse(money2.equals(money4));
@@ -133,12 +131,12 @@ public class PurseTest {
 		int capacity = 5;
 		double value = 10.0;
 		Purse purse = new Purse(capacity);
-		BankNote coin = new BankNote(value, "THB");
-		assertTrue(purse.insert(coin));
-		assertTrue(purse.insert(coin)); // should be allowed
-		assertTrue(purse.insert(coin)); // should be allowed
-		assertTrue(purse.insert(coin)); // should be allowed
-		assertTrue(purse.insert(coin)); // should be allowed
+		MoneyFactory coin = MoneyFactory.getInstance();
+		assertTrue(purse.insert(coin.createMoney(value)));
+		assertTrue(purse.insert(coin.createMoney(value))); // should be allowed
+		assertTrue(purse.insert(coin.createMoney(value))); // should be allowed
+		assertTrue(purse.insert(coin.createMoney(value))); // should be allowed
+		assertTrue(purse.insert(coin.createMoney(value))); // should be allowed
 		assertEquals(purse.getBalance(), 5 * value, TOL);
 	}
 

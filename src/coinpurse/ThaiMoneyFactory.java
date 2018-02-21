@@ -11,7 +11,6 @@ public class ThaiMoneyFactory extends MoneyFactory {
 	 * set the serial number
 	 */
 	private static long nextSerialNumber = 50000;
-	private long serialNumber;
 
 	/**
 	 * This method is for create Thai money, if the value didn't match condition that mean it doesn't have that money.
@@ -23,9 +22,8 @@ public class ThaiMoneyFactory extends MoneyFactory {
 			Valuable coin = new Coin(value, "Baht");
 			return coin;
 		} else if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) {
-			serialNumber = nextSerialNumber;
+			Valuable banknote = new BankNote(value, "Baht", nextSerialNumber);
 			nextSerialNumber++;
-			Valuable banknote = new BankNote(value, "Baht", serialNumber);
 			return banknote;
 		} else {
 			System.out.println("Thai doesn't have " + value + " money.Please summit again");

@@ -10,7 +10,6 @@ public class MalayMoneyFactory extends MoneyFactory {
 	 * set the serial number
 	 */
 	private static long nextSerialNumber = 1000;
-	private long serialNumber;
 	/**
 	 * This method is for create Malaysia money, if the value didn't match condition that mean it doesn't have that money.
 	 * It have serial number different of other country.
@@ -21,9 +20,9 @@ public class MalayMoneyFactory extends MoneyFactory {
 			Valuable coin = new Coin(value*100, "Sen");
 			return coin;
 		} else if (value == 1 || value == 2 || value == 5 || value == 10 || value == 20|| value == 50|| value == 100) {
-			serialNumber = nextSerialNumber;
+			Valuable banknote = new BankNote(value, "Ringgit", nextSerialNumber);
 			nextSerialNumber++;
-			Valuable banknote = new BankNote(value, "Ringgit", serialNumber);
+			
 			return banknote;
 		} else
 			System.out.print("Malaysia doesn't have this money.Please summit again");

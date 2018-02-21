@@ -42,7 +42,7 @@ public abstract class MoneyFactory {
 		try {
 			valueDouble = Double.parseDouble(value);
 		} catch (IllegalArgumentException er) {
-			System.out.print("wrong argument");
+			System.out.print("Value can't be parse to Double, please put right format");
 			return null;
 		}
 		return createMoney(valueDouble);

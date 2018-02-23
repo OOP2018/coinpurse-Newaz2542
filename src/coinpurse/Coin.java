@@ -20,6 +20,9 @@ public class Coin extends Money {
 	 */
 	@Override
 	public String toString() {
+		if(currency.equalsIgnoreCase("Ringgit"))
+		return value*100 + "-" + "Sen";
+		else 
 		return value + "-" + currency;
 	}
 

@@ -11,7 +11,7 @@ public class ConsoleDialog {
 
 	private static MoneyFactory money = MoneyFactory.getInstance();
 	// default currency for this dialog
-	public static final String CURRENCY = "Baht";
+	public static String CURRENCY = "Baht";
 	// use a single java.util.Scanner object for reading all input
 	private static Scanner console = new Scanner(System.in);
 	// Long prompt shown the first time
@@ -134,6 +134,12 @@ public class ConsoleDialog {
 	/** Make a Coin (or BankNote or whatever) using requested value. 
 	 * @return */
 	private Valuable makeMoney(double value) {
+		if(money.getClass().getSimpleName().equals("MalayMoneyFactory")) {
+		CURRENCY = "Ringgit";
+		}
+		else {
+			CURRENCY = "Baht";
+		}
 		Valuable values = null;
 		try {
 			values = money.createMoney(value);

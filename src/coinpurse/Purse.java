@@ -3,6 +3,11 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.RecursiveWithdraw;
+import coinpurse.strategy.WithdrawStrategy;
+
 import java.util.Comparator;
 
 /**
@@ -15,6 +20,7 @@ public class Purse {
 	/** Collection of objects in the purse. */
 	private List<Valuable> money = new ArrayList<Valuable>();
 	private Comparator<Valuable> comp = new ValueComparator();
+	private WithdrawStrategy strategy;
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set when
 	 * the purse is created and cannot be changed.
@@ -29,11 +35,12 @@ public class Purse {
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
+		strategy = new RecursiveWithdraw();
 	}
 
 	/**
-	 * Count and return the number of item in the purse. This is the number of
-	 * item money, not their value.
+	 * Count and return the number of item in the purse. This is the number of item
+	 * money, not their value.
 	 * 
 	 * @return the number of item in the purse
 	 */
@@ -90,49 +97,43 @@ public class Purse {
 		if (money.getValue() <= 0 || this.isFull())
 			return false;
 		else
-		this.money.add(money);
+			this.money.add(money);
 		return ok;
 	}
 
 	/**
-	 * Withdraw the requested amount of money that have currency Bath. 
-	 * Return an array of Valuable withdrawn from purse, or return null if cannot withdraw the amount requested.
+	 * Withdraw the requested amount of money that have currency Bath. Return an
+	 * array of Valuable withdrawn from purse, or return null if cannot withdraw the
+	 * amount requested.
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of Valuable objects for money withdrawn, or null if cannot withdraw
-	 *         requested amount.
+	 * @return array of Valuable objects for money withdrawn, or null if cannot
+	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		return withdraw(new Money(amount , "Bath"));
+		return withdraw(new Money(amount, "Baht"));
 	}
+
 	/**
-	 * Withdraw the requested amount of money that contains currency of amount. 
-	 * Return an array of Valuable withdrawn from purse, or return null if cannot withdraw the amount requested.
+	 * Withdraw the requested amount of money that contains currency of amount.
+	 * Return an array of Valuable withdrawn from purse, or return null if cannot
+	 * withdraw the amount requested.
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of Valuable objects for withdrawn money, or null if cannot withdraw
-	 *         requested amount.
+	 * @return array of Valuable objects for withdrawn money, or null if cannot
+	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(Valuable amount) {
 		List<Valuable> withdrawSave = new ArrayList<>();
-		java.util.Collections.sort(money,comp);
+		java.util.Collections.sort(money, comp);
 		java.util.Collections.reverse(money);
-		double amountSave = amount.getValue();
-		if (amountSave <= 0 || money.size() == 0 || this.getBalance() < amountSave || amount == null) {
+		withdrawSave = strategy.withdraw(amount, money);
+		
+		if(withdrawSave == null) {
 			return null;
 		}
-		for (Valuable m : money) {
-			if (amount.getValue() >= m.getValue()) {
-				amountSave -= m.getValue();
-				withdrawSave.add(m);
-			}
-			if (amountSave == 0) 
-				break;
-		}
-		if (amountSave != 0)
-			return null;
 		for (Valuable reset : withdrawSave)
 			money.remove(reset);
 		Valuable[] withdraw = new Valuable[withdrawSave.size()];

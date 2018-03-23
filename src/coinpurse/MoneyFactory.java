@@ -54,7 +54,7 @@ public abstract class MoneyFactory {
 	 * 
 	 * @param f
 	 */
-	static void setFactory(MoneyFactory f) {
+	public static void setFactory(MoneyFactory f) {
 		instance = f;
 	}
 }

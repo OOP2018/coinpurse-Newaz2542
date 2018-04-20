@@ -4,7 +4,7 @@ package coinpurse;
  * BankNote represents Money with a fixed value, currency and serial number.
  * @author Vichakorn Yotboonrueang
  */
-public class BankNote extends Money{
+public class Banknote extends Money{
 	/** save the serial number of Bank note. */
 	private long serialNumber;
 
@@ -17,7 +17,7 @@ public class BankNote extends Money{
 	 * @param currency
 	 *            of bank note
 	 */
-	public BankNote(double value, String currency,long serialNumber) {
+	public Banknote(double value, String currency,long serialNumber) {
 		super(value,currency);
 		this.serialNumber = serialNumber;
 	}

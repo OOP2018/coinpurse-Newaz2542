@@ -20,7 +20,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 			Valuable coin = new Coin(value, "Ringgit");
 			return coin;
 		} else if (value == 1 || value == 2 || value == 5 || value == 10 || value == 20|| value == 50|| value == 100) {
-			Valuable banknote = new BankNote(value, "Ringgit", nextSerialNumber);
+			Valuable banknote = new Banknote(value, "Ringgit", nextSerialNumber);
 			nextSerialNumber++;
 			
 			return banknote;

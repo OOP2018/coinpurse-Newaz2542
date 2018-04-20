@@ -22,7 +22,7 @@ public class ThaiMoneyFactory extends MoneyFactory {
 			Valuable coin = new Coin(value, "Baht");
 			return coin;
 		} else if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) {
-			Valuable banknote = new BankNote(value, "Baht", nextSerialNumber);
+			Valuable banknote = new Banknote(value, "Baht", nextSerialNumber);
 			nextSerialNumber++;
 			return banknote;
 		} else {
